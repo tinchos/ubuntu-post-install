@@ -18,7 +18,9 @@ vim .env
 
 ## variables requeridas
 Una vez editando el archivo .env agregar con tus datos las siguientes variables. esto podes usarlo de ejemplo, podes usar los valores que necesites y personalizarlo a gusto
-```text
-PATH_GH_PERS=/home/mjc/Documents/repos/mjc
-PATH_GH_PERS_CONFIG=/home/mjc/Documents/repos/mjc/configs
+```bash
+## el path en donde tenes tu repo
+PATH_GH_PERS=/home/your_user/path_your_repos
+## path donde esta los config
+PATH_GH_PERS_CONFIG=/home/your_user/path_repo/repo
 ```
