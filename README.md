@@ -21,9 +21,12 @@ y editarlo con tu programa de preferencia:
 ```bash
 vim .env
 ```
+Basicamente lo uso para las rutas de los path de algunas funciones que uso para enlaces simbolicos y carpetas de git
 
 ## variables requeridas
-Una vez editando el archivo .env agregar con tus datos las siguientes variables. esto podes usarlo de ejemplo, podes usar los valores que necesites y personalizarlo a gusto
+
+En caso de querer usar estas variables,edita el archivo .env agregar con tus datos las siguientes variables. esto podes usarlo de ejemplo, podes usar los valores que necesites y personalizarlo a gusto
+
 ```bash
 ## el path en donde tenes tu repo
 PATH_GH_PERS=/home/your_user/path_your_repos
