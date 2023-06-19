@@ -230,23 +230,6 @@ function git() {
     git checkout linux
 	sleep 3
     git pull
-#		cd $PATH_GH_WORK
-#		git clone git@github.com:ClaveLLC/terraform-helm-kong.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-vpn-ec2instance.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-module-amplify.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-module-eks.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-module-vpn-bind.git
-#		git clone git@github.com:ClaveLLC/terraform-mongodbatlas-module-project.git
-#		git clone git@github.com:ClaveLLC/terraform-mongodbatlas-module-cluster.git
-#		git clone git@github.com:ClaveLLC/terraform-helm-kong.git
-#		git clone git@github.com:ClaveLLC/terraform-helm-konga.git
-#		git clone git@github.com:ClaveLLC/terraform-mongodbatlas-module-peering.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-module-eks.git
-#		git clone git@github.com:ClaveLLC/terraform-kubernetes-module-es-agent.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-module-amplify.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-module-codepipline.git
-#		git clone git@github.com:ClaveLLC/terraform-aws-sa-role.git
-}
 ################################################
 
 menu_ubuntu() {
