@@ -1,4 +1,8 @@
 #!/bin/bash
+# load variables
+if [[ -f .env ]]; then
+  source .env
+fi
 
 ## Variables ##################################
 PATH_GH_PERS="$HOME/${PATH1}"
