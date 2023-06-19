@@ -1,5 +1,11 @@
 # ubuntu-post-install
 
+Archivo de uso personal, podes copiartelo, descargarlo y mejorarlo a tu gusto. 
+Esto esta hecho para facilitar la tarea de instalar y configurar aplicaciones y archivos luego de una reinstalacion.
+Puede que no sea lo mas optimo y proligo pero me es util.
+
+Si llegaste a este repo, te invito a que lo uses y lo modifique a tu gusto, no hace falta que lo diga, pero si queres hacer comentarios y subir modificaciones bienvenido sea
+
 # Requisito
 
 Para el uso del script, es necesario tener tu achivo de variables
