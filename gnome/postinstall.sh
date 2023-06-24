@@ -151,12 +151,13 @@ function inst_ohmyzsh() {
 function inst_antigen() {
 		echo -e "${BLUE}### Comprobando Antigen ### ${NC}"
 		FILE_ANTIGEN="~/.oh-my-zsh/antigen.zsh"
-		if [ -f "$FILE_ANTIGEN" ]; then
-   				-e "${RED}### Instalando Antigen ### ${NC}"
-				curl -L git.io/antigen > ~/.oh-my-zsh/antigen.zsh
-			else
-				echo -e "${GREEN}### Antigen ya esta instalado ### ${NC}"
-			fi
+		if [[ -f "$FILE_ANTIGEN" ]]; then
+			echo -e "${RED}### Instalando Antigen ### ${NC}"
+			curl -L git.io/antigen > ~/.oh-my-zsh/antigen.zsh
+			echo -e "${GREEN}### Antigen se instalo correctamente ### ${NC}"
+   		else
+			echo -e "${GREEN}### Antigen ya esta instalado ### ${NC}"
+		fi
 }
 function inst_coreapps() {
 	local script_dir="$(dirname "$0")"  # Directorio del script
@@ -178,7 +179,6 @@ function inst_coreapps() {
 			echo -e "${GREEN}'$program' Se instalo satisfactoriamente ${NC}"
 		fi
 	done
-
 }
 function inst_apps() {
 	local script_dir="$(dirname "$0")"  # Directorio del script
@@ -197,16 +197,6 @@ function inst_apps() {
 		fi
 	done
 }
-# function carpetas_github() {
-# 	echo "Configuracion de GitHub"
-# 	if [ -f "$PATH_GH_PERS" ] then
-# 			echo "Creando carpeta PERSONAL"
-# 			mkdir -p $PATH_GH_PERS		
-# 		else
-#    			echo "La carpeta PERSONAL esta creada"
-# 			sleep 3
-# 		fi
-# }
 function config_enlaces() {
 	echo -ne "
 	$LINE
@@ -239,20 +229,15 @@ function os_upgrade() {
 
 }
 function test_func() { 
-	cd $HOME
-	terra_v=$(terraform version | grep -oP '(?<=Terraform v)\d+\.\d+\.\d+')
-	echo -e "$BLUE Comprando si esta instalado Terraform...$CLEAR"
-	if ! command -v terraform &> /dev/null; then
-		echo -e "$RED terraform no está instalado. Instalando terraform...$CLEAR"
-		curl "https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip" -o terra_1.0.11.zip
-		unzip terra_1.0.11.zip
-		sudo mv terraform /usr/local/bin/
-		echo "Limpiando instalacion"
-		rm -f terra_1.0.11.zip
-		echo -e "$GREEN Terraform ($terra_v) se ha instalado correctamente.$CLEAR"
-	else
-		echo -e "$GREEN Ya existe la instalacion de Terraform ($terra_v).$CLEAR"
-	fi
+		echo -e "${BLUE}### Comprobando Antigen ### ${NC}"
+		FILE_ANTIGEN="~/.oh-my-zsh/antigen.zsh"
+		if [[ -f "$FILE_ANTIGEN" ]]; then
+			echo -e "${RED}### Instalando Antigen ### ${NC}"
+			curl -L git.io/antigen > ~/.oh-my-zsh/antigen.zsh
+			echo -e "${GREEN}### Antigen se instalo correctamente ### ${NC}"
+   		else
+			echo -e "${GREEN}### Antigen ya esta instalado ### ${NC}"
+		fi
 }
 
 ## start menu options
@@ -278,7 +263,7 @@ $(ColorBlue 'Choose an option:') "
                 4) inst_apps ; menu_ubuntu ;;
 #               5)  ; menu_ubuntu ;;
 #				6)  ; menu_ubuntu ;;
-				7) carpetas_github ; menu_ubuntu ;;
+				7) test_func ; menu_ubuntu ;;
 				9) os_upgrade ; menu_ubuntu ;;
                 0) exit 0 ;;
                 *) echo -e $RED"Wrong option."$CLEAR; WrongCommand;;
