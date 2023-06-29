@@ -258,7 +258,7 @@ $(ColorBlue 'Choose an option:') "
         read a
         case $a in
                 1) inst_coreapps ; inst_ohmyzsh ; inst_antigen ; os_upgrade ; menu_ubuntu ;;
-                2) inst_docker ; inst_kube ; inst_terra ; inst_argo ; inst_azure ; inst_minikube ; menu_ubuntu ;;
+                2) inst_docker ; inst_kube ; inst_terra ; inst_argo ; inst_helm ; inst_azure ; inst_minikube ; menu_ubuntu ;;
                 3) carpetas_github ; git ; enlaces ; menu_ubuntu ;;
                 4) inst_apps ; menu_ubuntu ;;
 #               5)  ; menu_ubuntu ;;
