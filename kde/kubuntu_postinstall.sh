@@ -141,14 +141,19 @@ function inst_terra() {
 }
 function inst_awscli() {
 		cd $HOME
-		echo "Instalando aws cli"
-		curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-		unzip awscliv2.zip
-		sudo ./aws/install
-		echo "Limpiando instalacion"
-		rm -rf ./aws && rm -f awscliv2.zip
-		aws --version
-		sleep 3
+		echo -e "$blue Comprando si esta instalado awsCli...$clear"
+		aws_v=$(aws --version)
+		if ! command -v aws &> /dev/null; then
+			echo -e "$RED awsCli no está instalado. Instalando AWS...$clear"
+			curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+			unzip awscliv2.zip
+			sudo ./aws/install
+			echo "Limpiando instalacion"
+			rm -rf ./aws && rm -f awscliv2.zip
+			aws --version
+		else
+        	echo -e "$green Ya existe la instalacion de awsCli ($aws_v).$clear"
+    	fi
 }
 function inst_docker() {
 	echo -e "$blue Comprando si esta instalado Docker...$clear"
