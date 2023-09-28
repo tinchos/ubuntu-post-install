@@ -50,16 +50,18 @@ function inst_helm() {
 	fi
 }
 function inst_argo() { 
-	cd ~
+	cd $HOME
+	argo_v=$(argo version --short)
+	echo -e "$BLUE Comprando si esta instalado Argo...$CLEAR"
 	if ! command -v argo &> /dev/null; then
-        echo "Argo CLI no está instalado. Instalando..."
+        echo -e "$RED ArgoCD no está instalado. Instalando ArgoCD...$CLEAR"
         sudo curl -sLO https://github.com/argoproj/argo/releases/latest/download/argo-linux-amd64.gz
         sudo gunzip -f argo-linux-amd64.gz
         sudo mv argo-linux-amd64 /usr/local/bin/argo
         sudo chmod +x /usr/local/bin/argo
-        echo "Argo CLI ha sido instalado correctamente."
+        echo -e "$GREEN Helm ($argo_v) se ha instalado correctamente.$CLEAR"
     else
-        echo "Argo CLI ya está instalado."
+        echo -e "$BLUE Ya existe la instalacion de ArgoCD ($argo_v).$CLEAR"
     fi
 }
 	# argo_v=$(argo version --short)
@@ -108,18 +110,17 @@ function inst_minikube() {
 			echo -e "$green Ya existe la instalacion de Minikube ($mk_v).$clear"
 		fi
 }
-function inst_minikube() {	
-		PATH_MK="/usr/local/bin/minikube"
-		if [ -f "$PATH_MK" ]
-			then
-   				echo "Minikube ya esta instalado"
-			else
-   				echo "Instalando Minikube"
-				curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-        		sleep 10
-				sudo install minikube-linux-amd64 /usr/local/bin/minikube
-				minikube version
-				sleep 3
+function inst_kube() { 
+		cd $HOME
+		kube_v=$(kubectl version --client=true | grep -oP '(?<=GitVersion:"v)\d+\.\d+\.\d+')
+		echo -e "$BLUE Comprando si esta instalado Kubectl...$CLEAR"
+		if ! command -v kubectl &> /dev/null; then
+   			echo -e "$RED Kubectl no está instalado. Instalando Kubectl...$CLEAR"
+			curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+			sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+			echo -e "$GREEN Kubectl ($kube_v) se ha instalado correctamente.$CLEAR"
+		else
+			echo -e "$BLUE Ya existe la instalacion de Kubectl ($kube_v).$CLEAR"
 		fi
 }
 function inst_terra() { 
@@ -160,6 +161,21 @@ function inst_docker() {
 		echo -e "$green Docker ($docker_v) se ha instalado correctamente.$clear"
     else
         echo -e "$green Ya existe la instalacion de Docker ($docker_v).$clear"
+    fi
+}
+function inst_kubelogin() {
+	echo -e "$blue Comprando si esta instalado Kubelogin...$clear"
+	cd $HOME
+	Kubelogin_v=$(kubelogin version)
+	if ! command -v kubelogin &> /dev/null; then
+        echo -e "$RED kubelogin no está instalado. Instalando kubelogin...$clear"
+        curl -LO https://github.com/int128/kubelogin/releases/latest/download/kubelogin_linux_amd64.zip
+        unzip kubelogin_linux_amd64.zip
+        sudo mv kubelogin /usr/local/bin/kubelogin
+		sudo chmod +x /usr/local/bin/kubelogin
+		echo -e "$green kubelogin ($Kubelogin_v) se ha instalado correctamente.$clear"
+    else
+        echo -e "$green Ya existe la instalacion de kubelogin ($Kubelogin_v).$clear"
     fi
 }
 function inst_ohmyzsh() {
@@ -208,15 +224,20 @@ function inst_apps() {
 			echo -e "${green}'$program' Se instalo satisfactoriamente ${NC}"
 		fi
 	done
-
-	echo -ne "$(ColorGreen '# # # # # # # # #') $(ColorBlue 'Instalando SNAP Apps') $(ColorGreen '# # # # # # # # #')"
+}
+function inst_snap() {
+	echo -ne " $LINE $(ColorGreen '# # #') $(ColorBlue 'Instalando SNAP Apps') $(ColorGreen '# # #') $LINE "
 	sleep 3
-	sudo snap install \
-		cacher \
-		spotify \
-		postman
-	#	kontena-lens --classic \ #no es la version oficial
-	#	code --classic
+	programs=($(cat programs_snap.src))
+	for program in "${programs[@]}"
+	do
+		if dpkg -s "$program" &> /dev/null; then
+			echo -e "${blue}El programa '$program' ya esta instalado ${NC}"
+		else
+			sudo apt install -y "$program"
+			echo -e "${green}'$program' Se instalo satisfactoriamente ${NC}"
+		fi
+	done
 }
 function inst_coreapps() {
 	echo -ne "
@@ -317,9 +338,9 @@ $(ColorBlue 'Choose an option:') "
         read a
         case $a in
                 1) inst_coreapps ; inst_ohmyzsh ; inst_antigen ; os_upgrade ; menu_ubuntu ;;
-                2) inst_docker ; inst_kube ; inst_terra ; inst_argo ; inst_azure ; inst_minikube ; menu_ubuntu ;;
+                2) inst_docker ; inst_kube ; inst_terra ; inst_argo ; inst_azure ; inst_minikube ; inst_kubelogin ; menu_ubuntu ;;
                 3) carpetas_github ; git ; enlaces ; menu_ubuntu ;;
-                4) inst_apps ; menu_ubuntu ;;
+                4) inst_apps ; inst_snap ; menu_ubuntu ;;
 #               5)  ; menu_ubuntu ;;
 #				6)  ; menu_ubuntu ;;
 				7) carpetas_github ; menu_ubuntu ;;
