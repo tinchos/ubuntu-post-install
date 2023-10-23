@@ -129,11 +129,12 @@ function inst_terra() {
 	echo -e "$blue Comprando si esta instalado Terraform...$clear"
 	if ! command -v terraform &> /dev/null; then
 		echo -e "$RED terraform no está instalado. Instalando terraform...$clear"
-		curl "https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip" -o terra_1.0.11.zip
-		unzip terra_1.0.11.zip
+		#curl "https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip" -o terra_1.0.11.zip
+		curl "https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip" -o terra_1.6.0.zip
+		unzip terra_1.6.0.zip
 		sudo mv terraform /usr/local/bin/
 		echo "Limpiando instalacion"
-		rm -f terra_1.0.11.zip
+		rm -f terra_1.6.0.zip
 		echo -e "$green Terraform ($terra_v) se ha instalado correctamente.$clear"
 	else
 		echo -e "$green Ya existe la instalacion de Terraform ($terra_v).$clear"
