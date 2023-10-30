@@ -203,6 +203,29 @@ function inst_antigen() {
 				echo -e "${green}### Antigen ya esta instalado ### ${NC}"
 			fi
 }
+
+function inst_brave() {
+    echo -e "${blue}### Comprobando Brave Browser ### ${NC}"
+
+    if [ -n "$(command -v brave-browser)" ]; then
+        echo -e "${green}### Brave Browser ya está instalado. Verificando versión... ### ${NC}"
+        current_version=$(brave-browser --version | awk '{print $2}')
+        echo -e "Versión actual: $current_version"
+
+        echo -e "${yellow}### Actualizando Brave Browser ### ${NC}"
+        sudo apt update
+        sudo apt upgrade brave-browser -y
+    else
+        echo -e "${red}### Brave Browser no está instalado. Instalando... ### ${NC}"
+        sudo apt install apt-transport-https curl -y
+        curl -sS https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+        echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+        sudo apt update
+        sudo apt install brave-browser -y
+    fi
+}
+
+
 function os_upgrade() {
 		echo -ne "
 		$(ColorGreen '# # # # # # # # #') $(ColorBlue 'Actualizando Ubuntu') $(ColorGreen '# # # # # # # # #')
@@ -346,10 +369,10 @@ $(ColorBlue 'Choose an option:') "
                 1) inst_coreapps ; inst_ohmyzsh ; inst_antigen ; os_upgrade ; menu_ubuntu ;;
                 2) inst_docker ; inst_kube ; inst_terra ; inst_argo ; inst_azure ; inst_minikube ; inst_kubelogin ; menu_ubuntu ;;
                 3) carpetas_github ; git ; enlaces ; menu_ubuntu ;;
-                4) inst_apps ; inst_snap ; menu_ubuntu ;;
+                4) inst_apps ; inst_brave ; inst_snap ; menu_ubuntu ;;
 #               5)  ; menu_ubuntu ;;
 #				6)  ; menu_ubuntu ;;
-				7) carpetas_github ; menu_ubuntu ;;
+				7) inst_brave ; menu_ubuntu ;;
 				9) os_upgrade ; menu_ubuntu ;;
                 0) exit 0 ;;
                 *) echo -e $red"Wrong option."$clear; WrongCommand;;
